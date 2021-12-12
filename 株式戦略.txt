@@ -1,0 +1,93 @@
+求めたいもの
+　１：上がり続ける可能性が高い株式、ETF
+　２：急成長が見込める株式
+
+分析：
+　・CUSUM検定（ホワイトノイズ、ランダムウォーク）
+　・爆発性検定
+
+目標変数：
+　・リターン
+
+特徴量：
+　テクニカル：
+　・シャープレシオ
+　　・日次リターン、ボラティリティ
+　・移動平均
+　　・最高値と最安値の対数の比の20/40/60/120日の移動平均
+　・変動率
+　　・起点日から過去5/10/20日以内の最高値/最安値への変動率
+　　・終値の20/40/60/120営業日前からの変化率
+　　・終値の20/40/60/120営業日間からの変化率
+　・乖離率
+　　・終値の20/40/60/120日移動平均からの乖離率
+
+　ファンダメンタルズ： 
+　・前年比：
+　　・総資産/純資産/営業CF/財務CF/投資CF/売上/営業利益/経常利益/純利益の前年同期比
+　　・四半期あたりの売上高/営業利益/経常利益/純利益の前年同期比
+　　・季節調整済みの四半期あたりの売上高/営業利益/経常利益/純利益の前年同期比
+　　・業績予想の売上高/営業利益/経常利益/純利益の前年同期比
+　　・業績予想の売上高/営業利益/経常利益/純利益と実績との差異
+　・指標：
+　　・四半期ROIC/季節調整済み四半期PER/業績予想に基づくROIC
+　　・四半期PER/季節調整済み四半期PER/業績予想に基づくPER
+　　・四半期ROE/季節調整済み四半期ROE/業績予想に基づくROE
+　　・PBR 
+　　・配当利回り 
+　　・配当性向
+　　・権利付き最終日
+　・比率：
+　　・全銘柄の時価総額の合計に対する当該銘柄の時価総額/売買代金/純資産/総資産の比 
+　　・配当基準日/予想配当基準日から起点日までの日数
+
+学習：
+　モデル単体：
+　・モデル構築
+　・CPCV
+　・評価指標
+　・リターン、ボラティリティ、SR、ISR、PSR
+　・RANK
+　　・予測リターンが最大
+　　・予測リスクが最小
+　アンサンブル：
+　・CPCV
+　・評価指標
+　・リターン、ボラティリティ、SR、ISR、PSR
+　・RANK
+　　・予測リターンが最大
+　　・予測リスクが最小
+
+戦略：
+　購入＆売却商品選択
+　・ルールベース
+　　パラメータ総当たり：
+　　・最大保有期間
+　　・利益確定閾値
+　　・損切確定閾値
+　　計算判定：
+　　・期間中のリターン率、SR、ISR、PSR
+　　・全銘柄の上位、下位
+　　・銘柄平均からの乖離
+　　・リターン集中度（HHI）
+　　・DD、HWM
+
+モニタリング：
+　・リスクマネジメント
+　　・ロング（銘柄、日付、利益＆損切確定閾値）
+　　・ロングした銘柄のリターン
+　　・利益＆損切確定閾値接触時にアラート
+　　
+　・パフォーマンス
+
+
+参考：
+- [The Limit Order Book](https://arxiv.org/pdf/1012.0349.pdf)
+- [Feature Engineering for Mid-Price Prediction With Deep Learning](https://arxiv.org/abs/1904.05384)
+- [Price jump prediction in Limit Order Book](https://arxiv.org/pdf/1204.1381.pdf)
+- [Handling and visualizing order book data](https://github.com/0b01/recurrent-autoencoder/blob/master/Visualizing%20order%20book.ipynb) by Ricky Han
+
+- [FIX Trading Standards](https://www.fixtrading.org/standards/)
+- Python: [Simplefix](https://github.com/da4089/simplefix)
+- C++ version: [quickfixengine](http://www.quickfixengine.org/)
+- Interactive Brokers [interface](https://www.interactivebrokers.com/en/index.php?f=4988)
